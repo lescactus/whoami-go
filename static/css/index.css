@@ -1,0 +1,20 @@
+.separator td {
+    font-weight: bold;
+    font-size: 1.5em;
+    /*text-align: center;*/
+  }
+  
+  /* Disable truncated first column */
+  .table td:first-child {
+    white-space: nowrap;
+  }
+  
+  /* No special color for html links */
+  td a {
+    text-decoration: none;
+    color: rgb(44, 62, 80);
+  }
+  
+  .space-div {
+    margin-top: 3em;
+  }

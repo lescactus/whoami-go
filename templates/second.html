@@ -1,0 +1,42 @@
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+        <tbody>
+            <tr>
+                <td><a href="/">{{.Host}}/</a></td>
+                <td>This page</td>
+            </tr>
+            <tr>
+                <td><a href="/index">{{.Host}}/index/</a></td>
+                <td>Also this page</td>
+            </tr>
+            <tr>
+                <td><a href="/ip">{{.Host}}/ip/</a></td>
+                <td>{{ .IP }}</td>
+            </tr>
+            <tr>
+                <td><a href="/port">{{.Host}}/port/</a></td>
+                <td>{{ .Port }}</td>
+            </tr>
+            <tr>
+                <td><a href="/lang">{{.Host}}/lang/</a></td>
+                <td>{{ .Lang }}</td>
+            </tr>
+            <tr>
+                <td><a href="/ua">{{.Host}}/ua/</a></td>
+                <td>{{ .UserAgent }}</td>
+            </tr>
+            <tr>
+                <td><a href="/raw/go">{{.Host}}/raw/go</a></td>
+                <td>{{ .Headers }}</td>
+            </tr>
+            <tr>
+                <td><a href="/raw/json">{{.Host}}/raw/json</a></td>
+                <td>{{ .JSON }}</td>
+            </tr>
+            <tr>
+                <td><a href="/raw/yaml">{{.Host}}/raw/yaml</a></td>
+                <td>{{ .YAML }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

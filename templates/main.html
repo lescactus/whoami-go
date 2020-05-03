@@ -1,0 +1,76 @@
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+        <tbody>
+            <tr>
+                <td>Your IP</td>
+                <td>{{ .IP }}</td>
+            </tr>
+            <tr>
+                <td>Your port</td>
+                <td>{{ .Port }}</td>
+            </tr>
+            {{ if .Location.CountryCode }}
+            <tr>
+                <td>Country Code</td>
+                <td>{{ .Location.CountryCode }}</td>
+            </tr>
+            {{ end }} {{ if .Location.CountryName }}
+            <tr>
+                <td>Country Name</td>
+                <td>{{ .Location.CountryName }}</td>
+            </tr>
+            {{ end }} {{ if .Location.RegionCode }}
+            <tr>
+                <td>Region Code</td>
+                <td>{{ .Location.RegionCode }}</td>
+            </tr>
+            {{ end }} {{ if .Location.RegionName }}
+            <tr>
+                <td>Region Name</td>
+                <td>{{ .Location.RegionName }}</td>
+            </tr>
+            {{ end }} {{ if .Location.City }}
+            <tr>
+                <td>City</td>
+                <td>{{ .Location.City }}</td>
+            </tr>
+            {{ end }} {{ if .Location.ZipCode }}
+            <tr>
+                <td>Zip Code</td>
+                <td>{{ .Location.ZipCode }}</td>
+            </tr>
+            {{ end }} {{ if .Location.Timezone }}
+            <tr>
+                <td>Timezone</td>
+                <td>{{ .Location.Timezone }}</td>
+            </tr>
+            {{ end }} {{ if .Location.Latitude }}
+            <tr>
+                <td>Latitude</td>
+                <td>{{ .Location.Latitude }}</td>
+            </tr>
+            {{ end }} {{ if .Location.Longitude }}
+            <tr>
+                <td>Longitude</td>
+                <td>{{ .Location.Longitude }}</td>
+            </tr>
+            {{ end }} {{ if .Location.MetroCode }}
+            <tr>
+                <td>Metro Code</td>
+                <td>{{ .Location.MetroCode }}</td>
+            </tr>
+            {{ end }}
+
+            <tr class="separator text-center">
+                <td>Header</td>
+                <td>Value</td>
+            </tr>
+            {{ range $key, $value := .Headers }}
+            <tr>
+                <td>{{ $key }}</td>
+                <td>{{ range $element := $value }} {{$element}} {{end}}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>

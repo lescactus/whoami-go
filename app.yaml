@@ -1,0 +1,15 @@
+# specify the runtime e.g. go,node,java,.NET etc
+runtime: go
+
+# Here we select the AppEngine Flex environment which performs a lot of the backend preparation for us including the ability to scale give the demand
+env: flex
+
+# Creates a  single instance that manually scales
+manual_scaling:
+  instances: 1
+  
+# Select resource size
+resources:
+  cpu: 1
+  memory_gb: 0.9
+  disk_size_gb: 10
