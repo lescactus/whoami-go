@@ -1,23 +1,28 @@
-FROM golang:1.15-alpine as builder
-
-RUN apk add git \
-  && go get -v "github.com/ghodss/yaml"
-
-ADD . /go/src/whoami
-
-WORKDIR /go/src/whoami
-
-RUN go build -o main
-
-FROM alpine
-
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk*
+FROM golang:alpine as builder
 
 WORKDIR /app
-COPY --from=builder /go/src/whoami/main /app
-COPY --from=builder /go/src/whoami/templates /app/templates
-COPY --from=builder /go/src/whoami/static /app/static
+
+COPY go.* ./
+
+RUN go mod download
+
+COPY *.go .
+
+RUN CGO_ENABLED=0 go build -ldflags '-d -w -s' -o main
+
+FROM alpine:3
+
+WORKDIR /app
+
+RUN chown -R 65534:65534 /app
+
+COPY --from=builder --chown=65534:65534 /app/main /app
+COPY --chown=65534:65534 ./templates /app/templates
+COPY --chown=65534:65534 ./static /app/static
 
 EXPOSE 8080
+
+# nobody
+USER 65534
 
 CMD ["./main"]
