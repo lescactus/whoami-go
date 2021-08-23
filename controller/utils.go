@@ -7,7 +7,7 @@ const (
 	headersToRemoveRegex = "(^((forwarded|Forwarded).*)|((x|X)-(.*))$)"
 )
 
-func removeCustomeHeaders(h map[string]string) map[string]string {
+func removeCustomHeaders(h map[string]string) map[string]string {
 	for header := range h {
 		matched, _ := regexp.MatchString(headersToRemoveRegex, header)
 		if matched {

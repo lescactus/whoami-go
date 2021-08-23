@@ -22,7 +22,7 @@ func IndexHandler(c *fiber.Ctx) error {
 		m[string(key)] = string(value)
 	})
 
-	m = removeCustomeHeaders(m)
+	m = removeCustomHeaders(m)
 
 	clientIP := c.IP()
 	f := geo.NewFreeGeoIPApp(clientIP)
@@ -103,7 +103,7 @@ func RawGoHandler(c *fiber.Ctx) error {
 		m[string(key)] = string(value)
 	})
 
-	m = removeCustomeHeaders(m)
+	m = removeCustomHeaders(m)
 	return c.SendString(fmt.Sprintf("%v", m))
 }
 
@@ -114,7 +114,7 @@ func RawJSONHandler(c *fiber.Ctx) error {
 		m[string(key)] = string(value)
 	})
 
-	m = removeCustomeHeaders(m)
+	m = removeCustomHeaders(m)
 	return c.JSON(m)
 }
 
@@ -124,7 +124,7 @@ func RawYAMLHandler(c *fiber.Ctx) error {
 	c.Request().Header.VisitAll(func(key []byte, value []byte) {
 		m[string(key)] = string(value)
 	})
-	m = removeCustomeHeaders(m)
+	m = removeCustomHeaders(m)
 
 	y, err := yaml.Marshal(m)
 	if err != nil {
