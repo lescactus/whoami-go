@@ -15,15 +15,6 @@ const (
 	undefinedResponse = "<undefined>"
 )
 
-func TestHandler(c *fiber.Ctx) error {
-	// f := geo.NewFreeGeoIPApp("8.8.8.8999")
-	// g := geo.GetBrowserLocation(f)
-	// fmt.Printf("%v", g)
-
-
-	return c.SendString(c.Request().Header.String())
-}
-
 func IndexHandler(c *fiber.Ctx) error {
 	m := make(map[string]string)
 
@@ -31,11 +22,12 @@ func IndexHandler(c *fiber.Ctx) error {
 		m[string(key)] = string(value)
 	})
 
-	f := geo.NewFreeGeoIPApp("83.137.6.1739")
+	clientIP := c.IP()
+	f := geo.NewFreeGeoIPApp(clientIP)
 	g := geo.GetBrowserLocation(f)
 
 	b := browser.NewBrowser(
-		c.IP(),
+		clientIP,
 		c.Port(),
 		string(c.Context().Host()),
 		m,
