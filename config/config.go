@@ -89,16 +89,17 @@ func (config *Config) setFiberConfig() {
 	engine := html.New(config.GetString("VIEWS_TEMPLATE_DIRECTORY"), config.GetString("VIEWS_TEMPLATE_EXTENSIONS"))
 	
 	config.fiber = &fiber.Config{
-		AppName:			appName,
-		Prefork:			config.GetBool("SERVER_FIBER_PREFORK"),
-		ServerHeader:		config.GetString("FIBER_SERVERHEADER"),
-		Views:				engine,
-		ReadTimeout:		config.GetDuration("SERVER_FIBER_READ_TIMEOUT"),
-		WriteTimeout:		config.GetDuration("SERVER_FIBER_WRITE_TIMEOUT"),
-		IdleTimeout:		config.GetDuration("SERVER_FIBER_IDLE_TIMEOUT"),
-		ProxyHeader:		config.GetString("SERVER_FIBER_PROXY_HEADER"),
-		ErrorHandler:		config.errorHandler,
-		DisableKeepalive:	config.GetBool("SERVER_FIBER_DISABLE_KEEPALIVE"),
+		AppName:					appName,
+		Prefork:					config.GetBool("SERVER_FIBER_PREFORK"),
+		Views:						engine,
+		ReadTimeout:				config.GetDuration("SERVER_FIBER_READ_TIMEOUT"),
+		WriteTimeout:				config.GetDuration("SERVER_FIBER_WRITE_TIMEOUT"),
+		IdleTimeout:				config.GetDuration("SERVER_FIBER_IDLE_TIMEOUT"),
+		EnableTrustedProxyCheck:	config.GetBool("SERVER_FIBER_ENABLE_TRUSTED_PROXY_CHECK"),
+		ProxyHeader:				config.GetString("SERVER_FIBER_PROXY_HEADER"),
+		TrustedProxies: 			config.GetStringSlice("SERVER_FIBER_TRUSTED_PROXIES"),
+		ErrorHandler:				config.errorHandler,
+		DisableKeepalive:			config.GetBool("SERVER_FIBER_DISABLE_KEEPALIVE"),
 	}
 }
 
