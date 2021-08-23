@@ -15,6 +15,11 @@ const (
 	undefinedResponse = "<undefined>"
 )
 
+var (
+	// Define which IP Geolocation API will be used to fetch browser informations
+	geoLocationAPI string
+)
+
 func DefaultErrorHandler(c *fiber.Ctx, err error) error {
 	// Status code defaults to 500
 	code := fiber.StatusInternalServerError
@@ -43,8 +48,15 @@ func IndexHandler(c *fiber.Ctx) error {
 	m = removeCustomHeaders(m)
 
 	clientIP := c.IP()
-	f := geo.NewFreeGeoIPApp(clientIP)
-	g := geo.GetBrowserLocation(f)
+
+	var n geo.GeoLocation
+	switch geoLocationAPI {
+	case "freegeoip":
+		n = geo.NewFreeGeoIPApp(clientIP)
+	case "ipapi":
+		n = geo.NewIPAPI(clientIP)
+	}
+	g := geo.GetBrowserLocation(n)
 
 	b := browser.NewBrowser(
 		clientIP,
@@ -150,4 +162,8 @@ func RawYAMLHandler(c *fiber.Ctx) error {
 	}
 
 	return c.Send(y)
+}
+
+func SetGeoLocationAPI(api string) {
+	geoLocationAPI = api
 }

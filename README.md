@@ -100,6 +100,10 @@ Now point your browser at http://127.0.0.1/
 
 * `MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE`(default value: `true`)
 
+* `HTTP_CLIENT_TIMEOUT` (default value: `5s`)
+
+* `GEOLOCATION_API` (default value: `freegeoip`). Define which IP GeoLocation API to use (https://freegeoip.app/, https://ip-api.com/). Valid values are `freegeoip` or `ipapi`
+
 
 Screenshots
 -----------

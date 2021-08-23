@@ -1,24 +1,36 @@
 package geo
 
 import (
-	"encoding/json"
 	"errors"
 
 	"github.com/gofiber/fiber/v2"
+	jsoniter "github.com/json-iterator/go"
 )
 
-type FreeGeoIPApp struct {
+const (
+	IpAPITagKey = "ipapi"
+)
+
+type IPAPI struct {
 	ip string
+	jsoniter jsoniter.API
 }
 
-func NewFreeGeoIPApp(ip string) *FreeGeoIPApp {
+func NewIPAPI(ip string) *IPAPI {
+	var j = jsoniter.Config{
+		EscapeHTML:             true,
+		SortMapKeys:            true,
+		ValidateJsonRawMessage: true,
+		TagKey: 				IpAPITagKey,
+	}.Froze()
 
-	return &FreeGeoIPApp{
+	return &IPAPI{
 		ip: ip,
+		jsoniter: j,
 	}
 }
 
-func (f *FreeGeoIPApp) Get() (Geo, error) {
+func (i *IPAPI) Get() (Geo, error) {
 	var g Geo
 
 	agent := fiber.AcquireAgent()
@@ -29,7 +41,7 @@ func (f *FreeGeoIPApp) Get() (Geo, error) {
 	req.Header.SetContentType("application/json")
 	req.Header.Set("Accept", "application/json")
 
-	req.SetRequestURI(freeGeoIPAppBaseURL + f.ip)
+	req.SetRequestURI(ipApiBaseURL + i.ip)
 
 	if err := agent.Parse(); err != nil {
 		panic(err)
@@ -37,14 +49,14 @@ func (f *FreeGeoIPApp) Get() (Geo, error) {
 	code, body, errs := agent.Bytes()
 
 	if code > 499 {
-		return g, errors.New("Error: Unexpected response code from " + freeGeoIPAppBaseURL + f.ip)
+		return g, errors.New("Error: Unexpected response code from " + ipApiBaseURL + i.ip)
 	}
 
 	if len(errs) > 0 {
 		return g, errors.New("Error: " + errs[0].Error())
 	}
 
-	err := json.Unmarshal(body, &g)
+	err := i.jsoniter.Unmarshal(body, &g)
 	if err != nil {
 		return g, err
 	}

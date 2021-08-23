@@ -10,11 +10,19 @@ import (
 
 	"github.com/lescactus/whoami-go/config"
 	"github.com/lescactus/whoami-go/controller"
+	"github.com/lescactus/whoami-go/geo"
 )
 
 func main() {
 	config := config.New(controller.DefaultErrorHandler)
+
+	// Set timeout of http client
+	geo.SetHTTPClientTimeout(config.GetDuration("HTTP_CLIENT_TIMEOUT"))
+
+	// Set the IP Getlocation API used to fetch browser IP location informations
+	controller.SetGeoLocationAPI(config.GetString("GEOLOCATION_API"))
 	
+	// New fiber app using custom configuration
 	app := fiber.New(*config.GetFiberConfig())
 		
 	// Serve static assets

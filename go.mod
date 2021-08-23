@@ -8,6 +8,7 @@ require (
 	github.com/gofiber/fiber v1.14.6
 	github.com/gofiber/fiber/v2 v2.17.0
 	github.com/gofiber/template v1.6.15
+	github.com/json-iterator/go v1.1.11
 	github.com/spf13/viper v1.8.1
 	github.com/stretchr/testify v1.7.0
 	github.com/valyala/fasthttp v1.29.0 // indirect

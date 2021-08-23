@@ -81,6 +81,12 @@ func (config *Config) setDefaults()  {
 	config.SetDefault("VIEWS_TEMPLATE_EXTENSIONS", ".html")
 	config.SetDefault("VIEWS_STATIC_DIRECTORY", "./views/static")
 
+	// Set default IP Geolocation API
+	config.SetDefault("GEOLOCATION_API", "freegeoip") // Availables: "freegeoip" or "ipapi"
+
+	// Set default http client configuration
+	config.SetDefault("HTTP_CLIENT_TIMEOUT", 5 * time.Second)
+
 	// Set default middlewares configuration
 	config.SetDefault("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE", true)
 }
