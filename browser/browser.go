@@ -13,9 +13,6 @@ type Browser struct {
 	lang      string
 	userAgent string
 	geo 	  *geo.Geo
-	//Location  *Location
-	//JSON      string
-	//YAML      string
 }
 
 func NewBrowser(ip string, port string, host string, headers map[string]string, url string, lang string, userAgent string, geo *geo.Geo) *Browser {

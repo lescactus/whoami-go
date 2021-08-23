@@ -15,6 +15,24 @@ const (
 	undefinedResponse = "<undefined>"
 )
 
+func DefaultErrorHandler(c *fiber.Ctx, err error) error {
+	// Status code defaults to 500
+	code := fiber.StatusInternalServerError
+
+	// Set error message
+	message := err.Error()
+
+	// Check if it's a fiber.Error type
+	if e, ok := err.(*fiber.Error); ok {
+		code = e.Code
+		message = e.Message
+	}
+
+	// Return JSON internal server error
+	c.Status(code)
+	return c.JSON(message)
+}
+
 func IndexHandler(c *fiber.Ctx) error {
 	m := make(map[string]string)
 

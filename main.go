@@ -1,50 +1,31 @@
 package main
 
 import (
-	"log"
-	"time"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/gofiber/template/html"
 
+	"github.com/lescactus/whoami-go/config"
 	"github.com/lescactus/whoami-go/controller"
 )
 
-const (
-	appName = "whoami-go"
-
-	listen = "0.0.0.0:8080"
-
-	templateDir = "./views/templates"
-
-	templateExt = ".html"
-
-	staticDir = "./views/static"
-
-	GCPTrustedProxyIP = "169.254.8.129"
-)
-
 func main() {
-	engine := html.New(templateDir, templateExt)
+	config := config.New(controller.DefaultErrorHandler)
+	
+	app := fiber.New(*config.GetFiberConfig())
+		
+	// Serve static assets
+	app.Static("/static", config.GetString("VIEWS_STATIC_DIRECTORY"))
 
-	app := fiber.New(fiber.Config{
-		StrictRouting: true,
-		ReadTimeout:   10 * time.Second,
-		WriteTimeout:  10 * time.Second,
-		IdleTimeout:   75 * time.Second,
-		EnableTrustedProxyCheck: true,
-		ProxyHeader: "X-Forwarded-For",
-		TrustedProxies: []string{GCPTrustedProxyIP},
-		AppName: appName,
-		Views:   engine,
-	})
-
-	app.Static("/static", staticDir)
-
+	// Middlewares registration
 	app.Use(requestid.New())
 	app.Use(logger.New())
+	app.Use(recover.New(recover.Config{
+		EnableStackTrace: config.GetBool("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE"),
+	}))
+	app.Use(compress.New())
 
 	app.Get("/", controller.IndexHandler)
 	app.Get("/index", controller.IndexHandler)
@@ -56,5 +37,9 @@ func main() {
 	app.Get("/raw/json", controller.RawJSONHandler)
 	app.Get("/raw/yaml", controller.RawYAMLHandler)
 
-	log.Fatal(app.Listen(listen))
+	// Start listening on the specified address
+	err := app.Listen(config.GetString("APP_ADDR"))
+	if err != nil {
+		app.Shutdown()
+	}
 }
