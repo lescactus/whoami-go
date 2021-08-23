@@ -32,7 +32,7 @@ func main() {
 		ReadTimeout:   10 * time.Second,
 		WriteTimeout:  10 * time.Second,
 		IdleTimeout:   75 * time.Second,
-		//ProxyHeader: "X-Forwarded-For",
+		EnableTrustedProxyCheck: true,
 		AppName: appName,
 		Views:   engine,
 	})
