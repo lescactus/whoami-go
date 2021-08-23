@@ -56,7 +56,5 @@ func main() {
 	app.Get("/raw/json", controller.RawJSONHandler)
 	app.Get("/raw/yaml", controller.RawYAMLHandler)
 
-	app.Get("/test", controller.TestHandler)
-
 	log.Fatal(app.Listen(listen))
 }
