@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/pprof"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 
@@ -26,6 +27,10 @@ func main() {
 		EnableStackTrace: config.GetBool("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE"),
 	}))
 	app.Use(compress.New())
+
+	if config.GetString("APP_ENV") != "production" {
+		app.Use(pprof.New())
+	}
 
 	app.Get("/", controller.IndexHandler)
 	app.Get("/index", controller.IndexHandler)

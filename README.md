@@ -74,7 +74,7 @@ Now point your browser at http://127.0.0.1/
 
 * `APP_ADDR`(default value: `:8080`)
 
-* `APP_ENV`(default value: `local`)
+* `APP_ENV`(default value: `local`). If set to anything other than `production`, run the `pprof` server at `/debug/pprof/`
 
 * `SERVER_FIBER_PREFORK`(default value: `false`)
 
