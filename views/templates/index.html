@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+{{ template "header" . }}
+
+<body>
+  <h1 class="text-center">Who am I ?</h1>
+
+  <div class="container">
+    <h2>Info from your browser</h2>
+    {{ template "main" . }}
+  </div>
+
+  {{/* If the coordonates are not defined, no need to display the map */}}
+  {{ if and .Longitude .Latitude }}
+  <div class="container space-div">
+    <h2>Where you are</h2>
+    {{ template "map" . }}
+    {{ end }}
+
+    <div class="container space-div">
+      <h2>Site map</h2>
+      {{ template "second" . }}
+    </div>
+</body>
+
+</html>

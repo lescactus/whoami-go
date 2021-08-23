@@ -9,55 +9,55 @@
                 <td>Your port</td>
                 <td>{{ .Port }}</td>
             </tr>
-            {{ if .Location.CountryCode }}
+            {{ if .CountryCode }}
             <tr>
                 <td>Country Code</td>
-                <td>{{ .Location.CountryCode }}</td>
+                <td>{{ .CountryCode }}</td>
             </tr>
-            {{ end }} {{ if .Location.CountryName }}
+            {{ end }} {{ if .CountryName }}
             <tr>
                 <td>Country Name</td>
-                <td>{{ .Location.CountryName }}</td>
+                <td>{{ .CountryName }}</td>
             </tr>
-            {{ end }} {{ if .Location.RegionCode }}
+            {{ end }} {{ if .RegionCode }}
             <tr>
                 <td>Region Code</td>
-                <td>{{ .Location.RegionCode }}</td>
+                <td>{{ .RegionCode }}</td>
             </tr>
-            {{ end }} {{ if .Location.RegionName }}
+            {{ end }} {{ if .RegionName }}
             <tr>
                 <td>Region Name</td>
-                <td>{{ .Location.RegionName }}</td>
+                <td>{{ .RegionName }}</td>
             </tr>
-            {{ end }} {{ if .Location.City }}
+            {{ end }} {{ if .City }}
             <tr>
                 <td>City</td>
-                <td>{{ .Location.City }}</td>
+                <td>{{ .City }}</td>
             </tr>
-            {{ end }} {{ if .Location.ZipCode }}
+            {{ end }} {{ if .ZipCode }}
             <tr>
                 <td>Zip Code</td>
-                <td>{{ .Location.ZipCode }}</td>
+                <td>{{ .ZipCode }}</td>
             </tr>
-            {{ end }} {{ if .Location.Timezone }}
+            {{ end }} {{ if .Timezone }}
             <tr>
                 <td>Timezone</td>
-                <td>{{ .Location.Timezone }}</td>
+                <td>{{ .Timezone }}</td>
             </tr>
-            {{ end }} {{ if .Location.Latitude }}
+            {{ end }} {{ if .Latitude }}
             <tr>
                 <td>Latitude</td>
-                <td>{{ .Location.Latitude }}</td>
+                <td>{{ .Latitude }}</td>
             </tr>
-            {{ end }} {{ if .Location.Longitude }}
+            {{ end }} {{ if .Longitude }}
             <tr>
                 <td>Longitude</td>
-                <td>{{ .Location.Longitude }}</td>
+                <td>{{ .Longitude }}</td>
             </tr>
-            {{ end }} {{ if .Location.MetroCode }}
+            {{ end }} {{ if .MetroCode }}
             <tr>
                 <td>Metro Code</td>
-                <td>{{ .Location.MetroCode }}</td>
+                <td>{{ .MetroCode }}</td>
             </tr>
             {{ end }}
 
@@ -68,7 +68,7 @@
             {{ range $key, $value := .Headers }}
             <tr>
                 <td>{{ $key }}</td>
-                <td>{{ range $element := $value }} {{$element}} {{end}}</td>
+                <td>{{ $value }}</td>
             </tr>
             {{ end }}
         </tbody>
