@@ -6,7 +6,7 @@ COPY go.* ./
 
 RUN go mod download
 
-COPY *.go .
+COPY . .
 
 RUN CGO_ENABLED=0 go build -ldflags '-d -w -s' -o main
 
@@ -17,8 +17,8 @@ WORKDIR /app
 RUN chown -R 65534:65534 /app
 
 COPY --from=builder --chown=65534:65534 /app/main /app
-COPY --chown=65534:65534 ./templates /app/templates
-COPY --chown=65534:65534 ./static /app/static
+COPY --chown=65534:65534 ./views/templates /app/views/templates
+COPY --chown=65534:65534 ./views/static /app/views/static
 
 EXPOSE 8080
 
