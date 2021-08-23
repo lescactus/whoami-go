@@ -22,6 +22,8 @@ const (
 	templateExt = ".html"
 
 	staticDir = "./views/static"
+
+	GCPTrustedProxyIP = "169.254.8.129"
 )
 
 func main() {
@@ -33,6 +35,8 @@ func main() {
 		WriteTimeout:  10 * time.Second,
 		IdleTimeout:   75 * time.Second,
 		EnableTrustedProxyCheck: true,
+		ProxyHeader: "X-Forwarded-For",
+		TrustedProxies: []string{GCPTrustedProxyIP},
 		AppName: appName,
 		Views:   engine,
 	})

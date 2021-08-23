@@ -7,7 +7,6 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gofiber/fiber/v2 v2.17.0
 	github.com/gofiber/template v1.6.15
-	github.com/gofiber/utils v0.1.2
 	github.com/valyala/fasthttp v1.29.0 // indirect
 	golang.org/x/sys v0.0.0-20210820121016-41cdb8703e55 // indirect
 )
