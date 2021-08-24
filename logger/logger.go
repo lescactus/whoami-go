@@ -43,6 +43,7 @@ func New(config ...Config) fiber.Handler {
 				zap.String("method", c.Method()),
 				zap.String("path", c.Path()),
 				zap.Int("code", c.Response().StatusCode()),
+				zap.String("user-agent", c.Get("User-Agent")),
 				zap.Duration("duration", stop.Sub(start).Round(time.Millisecond)))
 		} else {
 			cfg.Zap.Info("", 
@@ -50,6 +51,7 @@ func New(config ...Config) fiber.Handler {
 				zap.String("method", c.Method()),
 				zap.String("path", c.Path()),
 				zap.Int("code", c.Response().StatusCode()),
+				zap.String("user-agent", c.Get("User-Agent")),
 				zap.Duration("duration", stop.Sub(start).Round(time.Millisecond)))
 		}
 		return nil
