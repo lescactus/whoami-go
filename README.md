@@ -78,6 +78,10 @@ Now point your browser at http://127.0.0.1/
 
 * `APP_ENV`(default value: `local`). If set to anything other than `production`, run the `pprof` server at `/debug/pprof/`
 
+* `APP_CONFIG_NAME` (default `.env`)
+
+* `APP_CONFIG_PATH` (default `.`)
+
 * `SERVER_FIBER_PREFORK`(default value: `false`)
 
 * `SERVER_FIBER_READ_TIMEOUT`(default value: `10s`)

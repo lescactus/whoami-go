@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -86,6 +88,6 @@ func main() {
 	// Start listening on the specified address
 	err := app.Listen(cfg.GetString("APP_ADDR"))
 	if err != nil {
-		app.Shutdown()
+		log.Fatalln(err)
 	}
 }

@@ -38,9 +38,9 @@ func New(errorHandler fiber.ErrorHandler) *Config {
 	config.setDefaults()
 
 	// Select the .env file
-	config.SetConfigName(".env")
+	config.SetConfigName(config.GetString("APP_CONFIG_NAME"))
 	config.SetConfigType("dotenv")
-	config.AddConfigPath(".")
+	config.AddConfigPath(config.GetString("APP_CONFIG_PATH"))
 
 	// Automatically refresh environment variables
 	config.AutomaticEnv()
@@ -69,6 +69,8 @@ func (config *Config) setDefaults()  {
 	// Set default App configuration
 	config.SetDefault("APP_ADDR", ":8080")
 	config.SetDefault("APP_ENV", "local")
+	config.SetDefault("APP_CONFIG_NAME", ".env")
+	config.SetDefault("APP_CONFIG_PATH", ".")
 	
 	// Set default server app configuration
 	config.SetDefault("SERVER_FIBER_PREFORK", false)
@@ -103,7 +105,6 @@ func (config *Config) setDefaults()  {
 	config.SetDefault("LOGGER_ZAP_DISABLE_CALLER", true)
 	config.SetDefault("LOGGER_ZAP_DISABLE_STACK_TRACE", true)
 	config.SetDefault("LOGGER_ZAP_ENCODING", "json") // "json" or "console"
-
 }
 
 func (config *Config) setFiberConfig() {
