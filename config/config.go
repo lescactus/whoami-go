@@ -8,6 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 const (
@@ -23,6 +25,8 @@ type Config struct {
 
 	errorHandler fiber.ErrorHandler
 	fiber *fiber.Config
+
+	zapConfig *zap.Config
 }
 
 func New(errorHandler fiber.ErrorHandler) *Config {
@@ -51,8 +55,8 @@ func New(errorHandler fiber.ErrorHandler) *Config {
 
 	// Set the default error handler
 	config.setErrorHandler(errorHandler)
-
 	config.setFiberConfig()
+	config.setZapConfig()
 
 	return config
 }
@@ -89,6 +93,15 @@ func (config *Config) setDefaults()  {
 
 	// Set default middlewares configuration
 	config.SetDefault("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE", true)
+
+	// Set default loggers configuration
+	config.SetDefault("LOGGER_TYPE", "gofiber") // "gofiber" or "zap"
+	config.SetDefault("LOGGER_ZAP_LOG_LEVEL", "info") // "info", "debug" or "error"
+	config.SetDefault("LOGGER_ZAP_DEVELOPMENT_MODE", false)
+	config.SetDefault("LOGGER_ZAP_DISABLE_CALLER", true)
+	config.SetDefault("LOGGER_ZAP_DISABLE_STACK_TRACE", true)
+	config.SetDefault("LOGGER_ZAP_ENCODING", "json") // "json" or "console"
+
 }
 
 func (config *Config) setFiberConfig() {
@@ -109,6 +122,37 @@ func (config *Config) setFiberConfig() {
 	}
 }
 
+func (config *Config) setZapConfig() {
+	logLevel := config.GetString("LOGGER_ZAP_LOG_LEVEL")
+
+	cfg := zap.Config{
+		Development:       config.GetBool("LOGGER_ZAP_DEVELOPMENT_MODE"),
+		DisableCaller:     config.GetBool("LOGGER_ZAP_DISABLE_CALLER"),
+		DisableStacktrace: config.GetBool("LOGGER_ZAP_DISABLE_STACK_TRACE"),
+		Encoding:         config.GetString("LOGGER_ZAP_ENCODING"),
+		EncoderConfig:    zap.NewProductionEncoderConfig(),
+		OutputPaths:      []string{"stdout"},
+		ErrorOutputPaths: []string{"stderr"},
+	}
+
+	cfg.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
+	if logLevel == "error" {
+		cfg.Level = zap.NewAtomicLevelAt(zap.ErrorLevel)
+	}
+	if logLevel == "info" {
+		cfg.Level = zap.NewAtomicLevelAt(zap.InfoLevel)
+	}
+	if logLevel == "debug" {
+		cfg.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+		cfg.DisableCaller = false
+	}
+	config.zapConfig = &cfg
+}
+
 func (config *Config) GetFiberConfig() *fiber.Config {
 	return config.fiber
+}
+
+func (config *Config) GetZapConfig() *zap.Config {
+	return config.zapConfig
 }

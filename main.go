@@ -11,6 +11,7 @@ import (
 	"github.com/lescactus/whoami-go/config"
 	"github.com/lescactus/whoami-go/controller"
 	"github.com/lescactus/whoami-go/geo"
+	whoamilogger "github.com/lescactus/whoami-go/logger"
 )
 
 func main() {
@@ -28,9 +29,21 @@ func main() {
 	// Serve static assets
 	app.Static("/static", config.GetString("VIEWS_STATIC_DIRECTORY"))
 
+	// Logger registration
+	if config.GetString("LOGGER_TYPE") == "zap" {
+		ZapLogger, e := config.GetZapConfig().Build() 
+		if e != nil {
+			panic(e)
+		}
+		app.Use(whoamilogger.New(whoamilogger.Config{
+			Zap: ZapLogger,
+		}))
+	} else { // using default gofiber logger
+		app.Use(logger.New())
+	}
+	
 	// Middlewares registration
 	app.Use(requestid.New())
-	app.Use(logger.New())
 	app.Use(recover.New(recover.Config{
 		EnableStackTrace: config.GetBool("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE"),
 	}))
