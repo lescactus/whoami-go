@@ -44,7 +44,7 @@ func (i *IPAPI) Get() (Geo, error) {
 	req.SetRequestURI(ipApiBaseURL + i.ip)
 
 	if err := agent.Parse(); err != nil {
-		panic(err)
+		return g, err
 	}
 	code, body, errs := agent.Bytes()
 
@@ -60,8 +60,6 @@ func (i *IPAPI) Get() (Geo, error) {
 	if err != nil {
 		return g, err
 	}
-
-	fiber.ReleaseAgent(agent)
 
 	return g, nil
 }

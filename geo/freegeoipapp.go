@@ -32,7 +32,7 @@ func (f *FreeGeoIPApp) Get() (Geo, error) {
 	req.SetRequestURI(freeGeoIPAppBaseURL + f.ip)
 
 	if err := agent.Parse(); err != nil {
-		panic(err)
+		return g, err
 	}
 	code, body, errs := agent.Bytes()
 
@@ -48,8 +48,6 @@ func (f *FreeGeoIPApp) Get() (Geo, error) {
 	if err != nil {
 		return g, err
 	}
-
-	fiber.ReleaseAgent(agent)
 
 	return g, nil
 }
