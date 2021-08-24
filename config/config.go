@@ -131,7 +131,7 @@ func (config *Config) setZapConfig() {
 		DisableStacktrace: config.GetBool("LOGGER_ZAP_DISABLE_STACK_TRACE"),
 		Encoding:         config.GetString("LOGGER_ZAP_ENCODING"),
 		EncoderConfig:    zap.NewProductionEncoderConfig(),
-		OutputPaths:      []string{"stderr"},
+		OutputPaths:      []string{"stdout"},
 		ErrorOutputPaths: []string{"stderr"},
 	}
 
