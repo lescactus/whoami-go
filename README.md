@@ -28,6 +28,8 @@ This app is strongly inspired by **[ifconfig.me](http://ifconfig.me)**
 
 * `GET /raw/yaml` display all the http headers the browser send in yaml
 
+* `GET /metrics` display prometheus metrics if enabled (see configuration below)
+
 
 
 
@@ -116,6 +118,9 @@ Now point your browser at http://127.0.0.1/
 
 * `LOGGER_ZAP_ENCODING` (default value: `json`). Valid values are: `json` or `console`. Only usable when `LOGGER_TYPE=zap`
 
+* `MIDDLEWARE_PROMETHEUS_ENABLED` (default value: `true`)
+
+* `MIDDLEWARE_PROMETHEUS_METRICS_PATH` (default value: `/metrics`) Only usable when `MIDDLEWARE_PROMETHEUS_ENABLED=true`
 
 Screenshots
 -----------

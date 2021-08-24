@@ -14,7 +14,7 @@ import (
 
 const (
 	// Name of the application
-	appName = "whoami-go"
+	AppName = "whoami-go"
 
 	// Internal GCP Load Balancer IP
 	GCPTrustedProxyIP = "169.254.8.129"
@@ -93,6 +93,8 @@ func (config *Config) setDefaults()  {
 
 	// Set default middlewares configuration
 	config.SetDefault("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE", true)
+	config.SetDefault("MIDDLEWARE_PROMETHEUS_ENABLED", true)
+	config.SetDefault("MIDDLEWARE_PROMETHEUS_METRICS_PATH", "/metrics")
 
 	// Set default loggers configuration
 	config.SetDefault("LOGGER_TYPE", "gofiber") // "gofiber" or "zap"
@@ -108,7 +110,7 @@ func (config *Config) setFiberConfig() {
 	engine := html.New(config.GetString("VIEWS_TEMPLATE_DIRECTORY"), config.GetString("VIEWS_TEMPLATE_EXTENSIONS"))
 	
 	config.fiber = &fiber.Config{
-		AppName:					appName,
+		AppName:					AppName,
 		Prefork:					config.GetBool("SERVER_FIBER_PREFORK"),
 		Views:						engine,
 		ReadTimeout:				config.GetDuration("SERVER_FIBER_READ_TIMEOUT"),
