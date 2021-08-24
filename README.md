@@ -104,6 +104,18 @@ Now point your browser at http://127.0.0.1/
 
 * `GEOLOCATION_API` (default value: `freegeoip`). Define which IP GeoLocation API to use (https://freegeoip.app/, https://ip-api.com/). Valid values are `freegeoip` or `ipapi`
 
+* `LOGGER_TYPE` (default value: `gofiber`). Define which logger to use. Valid values are `gofiber` (default logger) or `zap`
+
+* `LOGGER_ZAP_LOG_LEVEL` (default value: `info`). Only usable when `LOGGER_TYPE=zap`
+
+* `LOGGER_ZAP_DEVELOPMENT_MODE` (default value: `false`). Only usable when `LOGGER_TYPE=zap`
+
+* `LOGGER_ZAP_DISABLE_CALLER` (default value: `true`). Only usable when `LOGGER_TYPE=zap`
+
+* `LOGGER_ZAP_DISABLE_STACK_TRACE` (default value: `true`). Only usable when `LOGGER_TYPE=zap`
+
+* `LOGGER_ZAP_ENCODING` (default value: `json`). Valid values are: `json` or `console`. Only usable when `LOGGER_TYPE=zap`
+
 
 Screenshots
 -----------
