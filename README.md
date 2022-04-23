@@ -1,7 +1,7 @@
 Who am I ?
 ==================
 
-A tiny Go web app that display sample information from the visitor (IP, location, browser HTTP headers ...): **[whoami](https://whoami-go.alexasr.tk/)** (Development version: [dev](https://whoami-go-dev-ujargjwndq-ew.a.run.app/)).
+A tiny Go web app that display sample information from the visitor (IP, location, browser HTTP headers ...): **[whoami](https://whoami-go.alexasr.fr/)** (Development version: [dev](https://whoami-go-dev-ujargjwndq-ew.a.run.app/)).
 It is a rewriting of one of my previous mini project (**[whoami-python](https://github.com/lescactus/whoami-python)**.)
 
 This app is strongly inspired by **[ifconfig.me](http://ifconfig.me)**
