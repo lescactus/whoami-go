@@ -7,7 +7,6 @@ import (
 const (
 	freeGeoIPAppBaseURL = "https://freegeoip.app/json/"
 
-	
 	ipApiBaseURL = "http://ip-api.com/json/" // HTTPS not available with the free version
 )
 

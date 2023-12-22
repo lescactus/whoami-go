@@ -19,7 +19,7 @@ type Config struct {
 
 var configDefault = Config{
 	Next: nil,
-	Zap: defaultZapLogger(),
+	Zap:  defaultZapLogger(),
 }
 
 // Helper function to set default values

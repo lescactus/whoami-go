@@ -9,7 +9,7 @@ import (
 
 func New(config ...Config) fiber.Handler {
 	cfg := newConfig(config...)
-	
+
 	// Return new handler
 	return func(c *fiber.Ctx) (err error) {
 		// Don't execute middleware if Next returns true
@@ -26,7 +26,7 @@ func New(config ...Config) fiber.Handler {
 		start = time.Now()
 
 		// Continue stack
-		chainErr:= c.Next()
+		chainErr := c.Next()
 
 		// Manually call error handler
 		if chainErr != nil {
@@ -47,7 +47,7 @@ func New(config ...Config) fiber.Handler {
 				zap.String("requestid", string(c.Response().Header.Peek("X-Request-Id"))),
 				zap.Duration("duration", stop.Sub(start).Round(time.Millisecond)))
 		} else {
-			cfg.Zap.Info("", 
+			cfg.Zap.Info("",
 				zap.String("ip", c.IP()),
 				zap.String("method", c.Method()),
 				zap.String("path", c.Path()),

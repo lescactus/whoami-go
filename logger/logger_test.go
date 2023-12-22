@@ -15,31 +15,31 @@ import (
 )
 
 type logLine struct {
-	Level 		string `json:"level"`
-	Timestamp  	string `json:"ts"`
-	Message 	string `json:"msg"`
-	IP			string `json:"ip"`
-	Method 		string `json:"method"`
-	Path 		string `json:"path"`
-	Code 		int    `json:"code"`
-	UserAgent 	string `json:"user-agent"`
-	Requestid 	string `json:"requestid"`
-	Duration 	time.Duration `json:"duration"`
+	Level     string        `json:"level"`
+	Timestamp string        `json:"ts"`
+	Message   string        `json:"msg"`
+	IP        string        `json:"ip"`
+	Method    string        `json:"method"`
+	Path      string        `json:"path"`
+	Code      int           `json:"code"`
+	UserAgent string        `json:"user-agent"`
+	Requestid string        `json:"requestid"`
+	Duration  time.Duration `json:"duration"`
 }
 
 func TestNew(t *testing.T) {
 
 	errorMessage := "ERROR"
-	
+
 	cfgZapJson := zap.Config{
 		Development:       false,
 		DisableCaller:     true,
 		DisableStacktrace: true,
-		Encoding:         "json",
-		EncoderConfig:    zap.NewProductionEncoderConfig(),
-		OutputPaths:      []string{"stdout"},
-		ErrorOutputPaths: []string{"stdout"},
-		Level: 			  zap.NewAtomicLevelAt(zap.InfoLevel),	  
+		Encoding:          "json",
+		EncoderConfig:     zap.NewProductionEncoderConfig(),
+		OutputPaths:       []string{"stdout"},
+		ErrorOutputPaths:  []string{"stdout"},
+		Level:             zap.NewAtomicLevelAt(zap.InfoLevel),
 	}
 	cfgZapJson.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder
 
@@ -54,20 +54,18 @@ func TestNew(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-	
-	
+
 		app := fiber.New()
 
 		app.Use(New(Config{
 			Next: nil,
-			Zap: zap,
+			Zap:  zap,
 		}))
 
-		
 		app.Get("/error", func(c *fiber.Ctx) error {
 			return errors.New(errorMessage)
 		})
-	
+
 		resp, err := app.Test(httptest.NewRequest("GET", "/error", nil))
 		assert.Equal(t, nil, err)
 		assert.Equal(t, fiber.StatusInternalServerError, resp.StatusCode)
@@ -80,7 +78,6 @@ func TestNew(t *testing.T) {
 	}
 	assert.Equal(t, errorMessage, logline.Message)
 
-
 	// Capture both stdin and stderr
 	//
 	// Scenario:
@@ -92,13 +89,12 @@ func TestNew(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-	
-	
+
 		app := fiber.New()
 
 		app.Use(New(Config{
 			Next: nil,
-			Zap: zap,
+			Zap:  zap,
 		}))
 
 		// Middleware always returning no error
@@ -109,13 +105,12 @@ func TestNew(t *testing.T) {
 		app.Get("/", func(c *fiber.Ctx) error {
 			return nil
 		})
-	
+
 		resp, err := app.Test(httptest.NewRequest("GET", "/", nil))
 		assert.Equal(t, nil, err)
 		assert.Equal(t, fiber.StatusOK, resp.StatusCode)
 	})
 
-	
 	err = json.Unmarshal([]byte(out), &logline)
 	if err != nil {
 		t.Error(err.Error())

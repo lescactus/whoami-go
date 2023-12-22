@@ -12,7 +12,7 @@ const (
 )
 
 type IPAPI struct {
-	ip string
+	ip       string
 	jsoniter jsoniter.API
 }
 
@@ -21,11 +21,11 @@ func NewIPAPI(ip string) *IPAPI {
 		EscapeHTML:             true,
 		SortMapKeys:            true,
 		ValidateJsonRawMessage: true,
-		TagKey: 				IpAPITagKey,
+		TagKey:                 IpAPITagKey,
 	}.Froze()
 
 	return &IPAPI{
-		ip: ip,
+		ip:       ip,
 		jsoniter: j,
 	}
 }

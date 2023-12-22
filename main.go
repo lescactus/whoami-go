@@ -26,13 +26,12 @@ func main() {
 
 	// Set the IP Getlocation API used to fetch browser IP location informations
 	controller.SetGeoLocationAPI(cfg.GetString("GEOLOCATION_API"))
-	
+
 	// New fiber app using custom configuration
 	app := fiber.New(*cfg.GetFiberConfig())
-		
+
 	// Serve static assets
 	app.Static("/static", cfg.GetString("VIEWS_STATIC_DIRECTORY"))
-
 
 	// Middlewares and logger registration
 	//
@@ -41,18 +40,17 @@ func main() {
 
 	// Logger registration
 	if cfg.GetString("LOGGER_TYPE") == "zap" {
-		ZapLogger, e := cfg.GetZapConfig().Build() 
-		if e != nil {
-			panic(e)
+		zaplogger, err := cfg.GetZapConfig().Build()
+		if err != nil {
+			panic(err)
 		}
 		app.Use(whoamilogger.New(whoamilogger.Config{
-			Zap: ZapLogger,
+			Zap: zaplogger,
 		}))
 	} else { // using default gofiber logger
 		app.Use(logger.New())
 	}
-	
-	
+
 	// Prometheus middleware - optional
 	if cfg.GetBool("MIDDLEWARE_PROMETHEUS_ENABLED") {
 		prometheus := fiberprometheus.New(config.AppName)
@@ -73,7 +71,6 @@ func main() {
 		app.Use(pprof.New())
 	}
 
-	
 	// Routes registration
 	app.Get("/", controller.IndexHandler)
 	app.Get("/index", controller.IndexHandler)

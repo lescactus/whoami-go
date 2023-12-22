@@ -12,19 +12,19 @@ type Browser struct {
 	url       string
 	lang      string
 	userAgent string
-	geo 	  *geo.Geo
+	geo       *geo.Geo
 }
 
 func NewBrowser(ip string, port string, host string, headers map[string]string, url string, lang string, userAgent string, geo *geo.Geo) *Browser {
 	return &Browser{
-		ip: ip,
-		port: port,
-		host: host,
-		headers: headers,
-		url: url,
-		lang: lang,
+		ip:        ip,
+		port:      port,
+		host:      host,
+		headers:   headers,
+		url:       url,
+		lang:      lang,
 		userAgent: userAgent,
-		geo: geo,
+		geo:       geo,
 	}
 }
 

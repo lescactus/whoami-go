@@ -24,7 +24,7 @@ type Config struct {
 	*viper.Viper
 
 	errorHandler fiber.ErrorHandler
-	fiber *fiber.Config
+	fiber        *fiber.Config
 
 	zapConfig *zap.Config
 }
@@ -65,18 +65,18 @@ func (config *Config) setErrorHandler(errorHandler fiber.ErrorHandler) {
 	config.errorHandler = errorHandler
 }
 
-func (config *Config) setDefaults()  {
+func (config *Config) setDefaults() {
 	// Set default App configuration
 	config.SetDefault("APP_ADDR", ":8080")
 	config.SetDefault("APP_ENV", "local")
 	config.SetDefault("APP_CONFIG_NAME", ".env")
 	config.SetDefault("APP_CONFIG_PATH", ".")
-	
+
 	// Set default server app configuration
 	config.SetDefault("SERVER_FIBER_PREFORK", false)
-	config.SetDefault("SERVER_FIBER_READ_TIMEOUT", 10 * time.Second)
-	config.SetDefault("SERVER_FIBER_WRITE_TIMEOUT", 10 * time.Second)
-	config.SetDefault("SERVER_FIBER_IDLE_TIMEOUT", 75 * time.Second)
+	config.SetDefault("SERVER_FIBER_READ_TIMEOUT", 10*time.Second)
+	config.SetDefault("SERVER_FIBER_WRITE_TIMEOUT", 10*time.Second)
+	config.SetDefault("SERVER_FIBER_IDLE_TIMEOUT", 75*time.Second)
 	config.SetDefault("SERVER_FIBER_ENABLE_TRUSTED_PROXY_CHECK", true)
 	config.SetDefault("SERVER_FIBER_PROXY_HEADER", "X-Forwarded-For")
 	config.SetDefault("SERVER_FIBER_TRUSTED_PROXIES", []string{GCPTrustedProxyIP})
@@ -91,7 +91,7 @@ func (config *Config) setDefaults()  {
 	config.SetDefault("GEOLOCATION_API", "freegeoip") // Availables: "freegeoip" or "ipapi"
 
 	// Set default http client configuration
-	config.SetDefault("HTTP_CLIENT_TIMEOUT", 5 * time.Second)
+	config.SetDefault("HTTP_CLIENT_TIMEOUT", 5*time.Second)
 
 	// Set default middlewares configuration
 	config.SetDefault("MIDDLEWARE_RECOVER_ENABLE_STACK_TRACE", true)
@@ -99,7 +99,7 @@ func (config *Config) setDefaults()  {
 	config.SetDefault("MIDDLEWARE_PROMETHEUS_METRICS_PATH", "/metrics")
 
 	// Set default loggers configuration
-	config.SetDefault("LOGGER_TYPE", "gofiber") // "gofiber" or "zap"
+	config.SetDefault("LOGGER_TYPE", "gofiber")       // "gofiber" or "zap"
 	config.SetDefault("LOGGER_ZAP_LOG_LEVEL", "info") // "info", "debug" or "error"
 	config.SetDefault("LOGGER_ZAP_DEVELOPMENT_MODE", false)
 	config.SetDefault("LOGGER_ZAP_DISABLE_CALLER", true)
@@ -109,19 +109,19 @@ func (config *Config) setDefaults()  {
 
 func (config *Config) setFiberConfig() {
 	engine := html.New(config.GetString("VIEWS_TEMPLATE_DIRECTORY"), config.GetString("VIEWS_TEMPLATE_EXTENSIONS"))
-	
+
 	config.fiber = &fiber.Config{
-		AppName:					AppName,
-		Prefork:					config.GetBool("SERVER_FIBER_PREFORK"),
-		Views:						engine,
-		ReadTimeout:				config.GetDuration("SERVER_FIBER_READ_TIMEOUT"),
-		WriteTimeout:				config.GetDuration("SERVER_FIBER_WRITE_TIMEOUT"),
-		IdleTimeout:				config.GetDuration("SERVER_FIBER_IDLE_TIMEOUT"),
-		EnableTrustedProxyCheck:	config.GetBool("SERVER_FIBER_ENABLE_TRUSTED_PROXY_CHECK"),
-		ProxyHeader:				config.GetString("SERVER_FIBER_PROXY_HEADER"),
-		TrustedProxies: 			config.GetStringSlice("SERVER_FIBER_TRUSTED_PROXIES"),
-		ErrorHandler:				config.errorHandler,
-		DisableKeepalive:			config.GetBool("SERVER_FIBER_DISABLE_KEEPALIVE"),
+		AppName:                 AppName,
+		Prefork:                 config.GetBool("SERVER_FIBER_PREFORK"),
+		Views:                   engine,
+		ReadTimeout:             config.GetDuration("SERVER_FIBER_READ_TIMEOUT"),
+		WriteTimeout:            config.GetDuration("SERVER_FIBER_WRITE_TIMEOUT"),
+		IdleTimeout:             config.GetDuration("SERVER_FIBER_IDLE_TIMEOUT"),
+		EnableTrustedProxyCheck: config.GetBool("SERVER_FIBER_ENABLE_TRUSTED_PROXY_CHECK"),
+		ProxyHeader:             config.GetString("SERVER_FIBER_PROXY_HEADER"),
+		TrustedProxies:          config.GetStringSlice("SERVER_FIBER_TRUSTED_PROXIES"),
+		ErrorHandler:            config.errorHandler,
+		DisableKeepalive:        config.GetBool("SERVER_FIBER_DISABLE_KEEPALIVE"),
 	}
 }
 
@@ -132,10 +132,10 @@ func (config *Config) setZapConfig() {
 		Development:       config.GetBool("LOGGER_ZAP_DEVELOPMENT_MODE"),
 		DisableCaller:     config.GetBool("LOGGER_ZAP_DISABLE_CALLER"),
 		DisableStacktrace: config.GetBool("LOGGER_ZAP_DISABLE_STACK_TRACE"),
-		Encoding:         config.GetString("LOGGER_ZAP_ENCODING"),
-		EncoderConfig:    zap.NewProductionEncoderConfig(),
-		OutputPaths:      []string{"stdout"},
-		ErrorOutputPaths: []string{"stderr"},
+		Encoding:          config.GetString("LOGGER_ZAP_ENCODING"),
+		EncoderConfig:     zap.NewProductionEncoderConfig(),
+		OutputPaths:       []string{"stdout"},
+		ErrorOutputPaths:  []string{"stderr"},
 	}
 
 	cfg.EncoderConfig.EncodeTime = zapcore.RFC3339TimeEncoder

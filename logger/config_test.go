@@ -39,13 +39,13 @@ func TestNewConfig(t *testing.T) {
 		},
 		{
 			desc: "Pass nil Next() function and zap logger",
-			have : newConfig(Config{
+			have: newConfig(Config{
 				Next: nil,
-				Zap: zap,
+				Zap:  zap,
 			}),
 			want: Config{
 				Next: nil,
-				Zap: zap,
+				Zap:  zap,
 			},
 		},
 		{
@@ -84,7 +84,7 @@ func TestDefaultZapLogger(t *testing.T) {
 		t.Run(test.desc, func(t *testing.T) {
 			test.want = defaultZapLogger()
 			assert.True(t, test.want.Core().Enabled(zapcore.InfoLevel))
-			assert.NotPanics(t, func(){
+			assert.NotPanics(t, func() {
 				test.want = defaultZapLogger()
 			})
 

@@ -16,7 +16,7 @@ func TestGetZapConfig(t *testing.T) {
 
 		cfg := New(errorHandlerFunc)
 		zapCfg := cfg.GetZapConfig()
-	
+
 		assert.NotEmpty(t, zapCfg)
 	})
 }
@@ -48,7 +48,6 @@ func TestSetZapConfig(t *testing.T) {
 			have: "console",
 			want: "console",
 		},
-		
 	}
 
 	for _, test := range tests {
@@ -66,26 +65,25 @@ func TestSetZapConfig(t *testing.T) {
 		})
 	}
 
-	
 	testsLogLevel := []struct {
-		desc string
+		desc     string
 		loglevel string
-		want zap.AtomicLevel
+		want     zap.AtomicLevel
 	}{
 		{
-			desc: "Set log level to info",
+			desc:     "Set log level to info",
 			loglevel: "info",
-			want: zap.NewAtomicLevelAt(zap.InfoLevel),
+			want:     zap.NewAtomicLevelAt(zap.InfoLevel),
 		},
 		{
-			desc: "Set log level to error",
+			desc:     "Set log level to error",
 			loglevel: "error",
-			want: zap.NewAtomicLevelAt(zap.ErrorLevel),
+			want:     zap.NewAtomicLevelAt(zap.ErrorLevel),
 		},
 		{
-			desc: "Set log level to debug",
+			desc:     "Set log level to debug",
 			loglevel: "debug",
-			want: zap.NewAtomicLevelAt(zap.DebugLevel),
+			want:     zap.NewAtomicLevelAt(zap.DebugLevel),
 		},
 	}
 

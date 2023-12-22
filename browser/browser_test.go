@@ -8,35 +8,35 @@ import (
 )
 
 var (
-	ip 			= "127.0.0.1"
-	port 		= "40000"
-	host 		= "example.com"
-	headers		=  map[string]string{"header1": "value1", "header2": "value2"}
-	url			= "https://example.com/"
-	lang		= "fr-FR,fr;q=0.5"
-	userAgent	= "Fake User Agent"
-	browserGeo	= &geo.Geo{
-		CountryCode: 	"FR",
-		CountryName:	"France",
-		RegionCode:		"IDF",
-		RegionName:		"Île-de-France",
-		City: 			"Paris",
-		ZipCode:		"75008",
-		Timezone:		"Europe/Paris",
-		Latitude:		48.8714,
-		Longitude:		2.32141,
-		MetroCode:		8,
+	ip         = "127.0.0.1"
+	port       = "40000"
+	host       = "example.com"
+	headers    = map[string]string{"header1": "value1", "header2": "value2"}
+	url        = "https://example.com/"
+	lang       = "fr-FR,fr;q=0.5"
+	userAgent  = "Fake User Agent"
+	browserGeo = &geo.Geo{
+		CountryCode: "FR",
+		CountryName: "France",
+		RegionCode:  "IDF",
+		RegionName:  "Île-de-France",
+		City:        "Paris",
+		ZipCode:     "75008",
+		Timezone:    "Europe/Paris",
+		Latitude:    48.8714,
+		Longitude:   2.32141,
+		MetroCode:   8,
 	}
 
 	browser = &Browser{
-		ip: 		ip,
-		port: 		port,
-		host: 		host,
-		headers: 	headers,
-		url: 		url,
-		lang: 		lang,
-		userAgent: 	userAgent,
-		geo: 		browserGeo,
+		ip:        ip,
+		port:      port,
+		host:      host,
+		headers:   headers,
+		url:       url,
+		lang:      lang,
+		userAgent: userAgent,
+		geo:       browserGeo,
 	}
 )
 
@@ -47,7 +47,7 @@ func TestNewBrowser(t *testing.T) {
 		assert.Equal(t, b, browser)
 		assert.NotEmpty(t, b)
 	})
-	
+
 }
 
 func TestGets(t *testing.T) {
@@ -174,10 +174,10 @@ func TestGets(t *testing.T) {
 	for _, test := range testsFloats {
 		t.Run(test.desc, func(t *testing.T) {
 			assert.Equal(t, test.want, test.have)
-			assert.NotEmpty(t, test.have)	
+			assert.NotEmpty(t, test.have)
 		})
 	}
-	
+
 	for _, test := range testsMapStrings {
 		t.Run(test.desc, func(t *testing.T) {
 			assert.Equal(t, test.want, test.have)
