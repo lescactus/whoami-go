@@ -1,6 +1,6 @@
 module github.com/lescactus/whoami-go
 
-go 1.16
+go 1.19
 
 require (
 	github.com/ansrivas/fiberprometheus/v2 v2.1.2

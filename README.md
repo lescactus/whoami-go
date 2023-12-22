@@ -1,6 +1,6 @@
 # Who am I ?
 
-![go](https://img.shields.io/badge/go->=1.17-blue)
+![go](https://img.shields.io/badge/go->=1.19-blue)
 
 A tiny Go web app that display sample information from the visitor (IP, location, browser HTTP headers ...): **[whoami](https://whoami-go.alexasr.fr/)** (Development version: [dev](https://whoami-go-dev-ujargjwndq-ew.a.run.app/)).
 It is a rewriting of one of my previous mini project (**[whoami-python](https://github.com/lescactus/whoami-python)**.)
@@ -9,7 +9,7 @@ This app is strongly inspired by **[ifconfig.me](http://ifconfig.me)**
 
 ## Requirements
 
-* Golang 1.17 or higher
+* Golang 1.19 or higher
 
 ## Getting started
 
@@ -21,7 +21,7 @@ Prebuilt binaries can be downloaded from the GitHub Releases [section](https://g
 
 #### From source with Go
 
-You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go 1.20 and should work with go >= 1.17). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
+You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go 1.20 and should work with go >= 1.19). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
 
 ```bash
 # Clone this repository
