@@ -1,14 +1,89 @@
-Who am I ?
-==================
+# Who am I ?
+
+![go](https://img.shields.io/badge/go->=1.17-blue)
 
 A tiny Go web app that display sample information from the visitor (IP, location, browser HTTP headers ...): **[whoami](https://whoami-go.alexasr.fr/)** (Development version: [dev](https://whoami-go-dev-ujargjwndq-ew.a.run.app/)).
 It is a rewriting of one of my previous mini project (**[whoami-python](https://github.com/lescactus/whoami-python)**.)
 
 This app is strongly inspired by **[ifconfig.me](http://ifconfig.me)**
 
-#### Specifications
+## Requirements
 
-##### Endpoints
+* Golang 1.17 or higher
+
+## Getting started
+
+Prebuilt binaries can be downloaded from the GitHub Releases [section](https://github.com/lescactus/whoami-go/releases), or using a Docker image from the Github Container Registry. See [here](https://github.com/lescactus/whoami-go#running-with-docker-rooster)
+
+### Building `whoami-go` :cd:
+
+<details>
+
+#### From source with Go
+
+You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go 1.20 and should work with go >= 1.17). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
+
+```bash
+# Clone this repository
+git clone https://github.com/lescactus/whoami-go.git && cd whoami-go/
+
+# Build from sources. Use the '-o' flag to change the compiled binary name
+go build
+
+# Default compiled binary is whoami-go
+# You can optionnaly move it somewhere in your $PATH to access it shell wide
+./whoami-go
+```
+
+#### From source with docker
+
+If you don't have [go](https://golang.org/doc/install) installed but have docker, run the following command to build inside a docker container:
+
+```bash
+# Build from sources inside a docker container. Use the '-o' flag to change the compiled binary name
+# Warning: the compiled binary belongs to root:root
+docker run --rm -it -v "$PWD":/app -w /app golang:1.20 go build -buildvcs=false
+
+# Default compiled binary is whoami-go
+# You can optionnaly move it somewhere in your $PATH to access it shell wide
+./whoami-go
+```
+
+The server is accessible at http://127.0.0.1:8080
+
+#### With Docker
+
+`whoami-go` comes with a `Dockerfile`. To build the image:
+
+```bash
+docker build -t whoami-go .
+
+docker run -d -p 8080:8080 --restart="always" --name whoami-go whoami-go 
+```
+
+The server is accessible at http://127.0.0.1:8080
+
+</details>
+
+### Running with Docker :rooster:
+
+```bash
+docker run -d -p 8080:8080 --restart="always" --name whoami-go ghcr.io/lescactus/whoami-go
+```
+
+The server is accessible at http://127.0.0.1:8080
+
+### Running with Docker Compose :cactus:
+
+```bash
+docker compose up
+```
+
+The server is accessible at http://127.0.0.1:8080
+
+## Specifications :ocean:
+
+### Endpoints
 
 * `GET /` display informations from the browser: http headers, public IP, geo locations informations (such as country name, city name, etc ...) and a map
 
@@ -31,48 +106,11 @@ This app is strongly inspired by **[ifconfig.me](http://ifconfig.me)**
 * `GET /metrics` display prometheus metrics if enabled (see configuration below)
 
 
+## Configuration :deciduous_tree:
 
+`whoami-go` is a 12-factor app using [Viper](https://github.com/spf13/viper) as a configuration manager. It can read configuration either from environment variables or from a key/value `.env` file. This `.env` file represents system environment variables on the machine. This change was made with the ease-of-use with Docker in mind.
 
-Use it now
-----------
-
-```sh
-# Install via go get and run it
-$ go get "github.com/lescactus/whoami-go"
-$ whoami-go
-...
-
-# Git clone and build:
-$ git clone https://github.com/lescactus/whoami-go.git
-$ go run main.go
-...
-```
-
-Now point your browser at http://127.0.0.1:8080
-
-### Docker
-**whoami** can easily be dockerized and is shipped with a ``Dockerfile``.
-
-By default, the container will expose port 8080, so change this within the ``Dockerfile`` if necessary. When ready, simply use the ``Dockerfile`` to build the image.
-
-```sh
-docker build -t whoami .
-```
-This will create the Docker image.
-
-Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 80 of the host to port 8080 of the container:
-
-```sh
-docker run -d -p 80:8080 --restart="always" --name whoami whoami 
-```
-
-Now point your browser at http://127.0.0.1/
-
-### Configuration
-
-`whoami` is a 12-factor app using [Viper](https://github.com/spf13/viper) as a configuration manager. It can read configuration either from environment variables or from a key/value `.env` file. This `.env` file represents system environment variables on the machine. This change was made with the ease-of-use with Docker in mind.
-
-#### Available variables
+### Available variables
 
 * `APP_ADDR`(default value: `:8080`)
 

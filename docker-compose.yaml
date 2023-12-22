@@ -1,0 +1,13 @@
+services:
+  whoami-api:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    environment:
+      - LOGGER_TYPE=zap
+      - LOGGER_ZAP_LOG_LEVEL=debug
+      - LOGGER_ZAP_DEVELOPMENT_MODE=true
+      - LOGGER_ZAP_ENCODING=console
+      - GEOLOCATION_API=freegeoip
+
