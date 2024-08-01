@@ -1,6 +1,8 @@
 module github.com/lescactus/whoami-go
 
-go 1.19
+go 1.21
+
+toolchain go1.22.2
 
 require (
 	github.com/ansrivas/fiberprometheus/v2 v2.7.0
