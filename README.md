@@ -1,6 +1,6 @@
 # Who am I ?
 
-![go](https://img.shields.io/badge/go->=1.21-blue)
+![go](https://img.shields.io/badge/go->=1.22-blue)
 
 A tiny Go web app that display sample information from the visitor (IP, location, browser HTTP headers ...): **[whoami](https://whoami-go.alexasr.fr/)** (Development version: [dev](https://whoami-go-dev-ujargjwndq-ew.a.run.app/)).
 It is a rewriting of one of my previous mini project (**[whoami-python](https://github.com/lescactus/whoami-python)**.)
@@ -9,7 +9,7 @@ This app is strongly inspired by **[ifconfig.me](http://ifconfig.me)**
 
 ## Requirements
 
-* Golang 1.21 or higher
+* Golang 1.22 or higher
 
 ## Getting started
 
@@ -21,7 +21,7 @@ Prebuilt binaries can be downloaded from the GitHub Releases [section](https://g
 
 #### From source with Go
 
-You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go 1.21 and should work with go >= 1.21). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
+You need a working [go](https://golang.org/doc/install) toolchain (It has been developped and tested with go 1.22 and should work with go >= 1.22). Refer to the official documentation for more information (or from your Linux/Mac/Windows distribution documentation to install it from your favorite package manager).
 
 ```bash
 # Clone this repository
@@ -42,7 +42,7 @@ If you don't have [go](https://golang.org/doc/install) installed but have docker
 ```bash
 # Build from sources inside a docker container. Use the '-o' flag to change the compiled binary name
 # Warning: the compiled binary belongs to root:root
-docker run --rm -it -v "$PWD":/app -w /app golang:1.20 go build -buildvcs=false
+docker run --rm -it -v "$PWD":/app -w /app golang:1.22 go build -buildvcs=false
 
 # Default compiled binary is whoami-go
 # You can optionnaly move it somewhere in your $PATH to access it shell wide
