@@ -7,7 +7,7 @@ toolchain go1.24.1
 require (
 	github.com/ansrivas/fiberprometheus/v2 v2.14.0
 	github.com/ghodss/yaml v1.0.0
-	github.com/gofiber/fiber/v2 v2.52.10
+	github.com/gofiber/fiber/v2 v2.52.11
 	github.com/gofiber/template v1.6.15
 	github.com/json-iterator/go v1.1.12
 	github.com/kami-zh/go-capturer v0.0.0-20171211120116-e492ea43421d
