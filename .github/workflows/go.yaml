@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        version: ["1.24", "1.25"]
+        version: ["1.25", "1.26", "1.27"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
@@ -30,7 +30,7 @@ jobs:
   test:
     strategy:
         matrix:
-          version: ["1.24", "1.25"]
+          version: ["1.25", "1.26", "1.27"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
@@ -47,7 +47,7 @@ jobs:
   race-condition:
     strategy:
       matrix:
-        version: ["1.24", "1.25"]
+        version: ["1.25", "1.26", "1.27"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
